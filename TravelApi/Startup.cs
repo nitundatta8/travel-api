@@ -14,7 +14,6 @@ using TravelApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-
 namespace TravelApi
 {
   public class Startup
