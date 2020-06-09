@@ -18,9 +18,25 @@ namespace TravelApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get(string city, string country)
+    public ActionResult<IEnumerable<Place>> Get(string city, string country, double rating)
     {
-      return _db.Places.ToList();
+      var query = _db.Places.AsQueryable();
+
+      if (city != null)
+      {
+        query = query.Where(entry => entry.City == city);
+      }
+
+      if (country != null)
+      {
+        query = query.Where(entry => entry.Country == country);
+      }
+
+      if (rating != null)
+      {
+        query = query.Where(entry => entry.Rating == rating);
+      }
+      return query.ToList();
     }
 
     [HttpPost]
