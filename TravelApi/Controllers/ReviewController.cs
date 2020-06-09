@@ -32,5 +32,16 @@ namespace TravelApi.Controllers
       }
       return query.ToList();
     }
+    [HttpGet]
+    [Route("getreviews")]
+    public ActionResult<IEnumerable<Review>> GetReview(string city)
+    {
+      var query = _db.Reviews.AsQueryable();
+      if (city != null)
+      {
+        query = query.Where(entry => entry.Place.City == city);
+      }
+      return query.ToList();
+    }
   }
 }
