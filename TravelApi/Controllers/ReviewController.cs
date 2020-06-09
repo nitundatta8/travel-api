@@ -21,15 +21,16 @@ namespace TravelApi.Controllers
     public ActionResult<IEnumerable<Review>> Get(string reviewtext, double rating)
     {
       var query = _db.Reviews.AsQueryable();
+
       if (reviewtext != null)
       {
         query = query.Where(entry => entry.ReviewText == reviewtext);
       }
-      if (rating != null)
+      if (rating != 0)
       {
         query = query.Where(entry => entry.Rating == rating);
       }
-      return _db.Reviews.ToList();
+      return query.ToList();
     }
   }
 }

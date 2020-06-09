@@ -32,7 +32,7 @@ namespace TravelApi.Controllers
         query = query.Where(entry => entry.Country == country);
       }
 
-      if (rating != null)
+      if (rating != 0)
       {
         query = query.Where(entry => entry.Rating == rating);
       }
