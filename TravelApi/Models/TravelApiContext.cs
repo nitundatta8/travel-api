@@ -16,9 +16,10 @@ namespace TravelApi.Models
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<Place>()
-          .HasData(new Place { PlaceId = 1, City = "Tokyo", Country = "Japan", Rating = 2 },
-                        new Place { PlaceId = 2, City = "Seattle", Country = "US", Rating = 4 },
-                        new Place { PlaceId = 3, City = "London", Country = "England", Rating = 3 });
+          .HasData(
+            new Place { PlaceId = 1, City = "Tokyo", Country = "Japan", Rating = 2 },
+            new Place { PlaceId = 2, City = "Seattle", Country = "US", Rating = 4 },
+            new Place { PlaceId = 3, City = "London", Country = "England", Rating = 3 });
       builder.Entity<Review>()
           .HasData(
             new Review { ReviewId = 1, ReviewText = "Great!", PlaceId = 1, Rating = 2 },

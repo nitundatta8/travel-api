@@ -18,7 +18,7 @@ namespace TravelApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get(string city, string country, double rating)
+    public ActionResult<IEnumerable<Place>> Get(string city, string country)
     {
       return _db.Places.ToList();
     }
@@ -34,6 +34,22 @@ namespace TravelApi.Controllers
     public ActionResult<Place> GetAction(int id)
     {
       return _db.Places.FirstOrDefault(entry => entry.PlaceId == id);
+    }
+
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] Place place)
+    {
+      place.PlaceId = id;
+      _db.Entry(place).State = EntityState.Modified;
+      _db.SaveChanges();
+    }
+
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+      var placeToDelete = _db.Places.FirstOrDefault(entry => entry.PlaceId == id);
+      _db.Places.Remove(placeToDelete);
+      _db.SaveChanges();
     }
   }
 }

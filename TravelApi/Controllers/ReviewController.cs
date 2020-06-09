@@ -18,7 +18,7 @@ namespace TravelApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Review>> Get(string ReviewText, double Rating)
+    public ActionResult<IEnumerable<Review>> Get(string reviewtext, double rating)
     {
       return _db.Reviews.ToList();
     }
