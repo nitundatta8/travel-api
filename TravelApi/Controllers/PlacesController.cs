@@ -18,9 +18,22 @@ namespace TravelApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Place>> Get()
+    public ActionResult<IEnumerable<Place>> Get(string city, string country, double rating)
     {
       return _db.Places.ToList();
+    }
+
+    [HttpPost]
+    public void Post([FromBody] Place place)
+    {
+      _db.Places.Add(place);
+      _db.SaveChanges();
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Place> GetAction(int id)
+    {
+      return _db.Places.FirstOrDefault(entry => entry.PlaceId == id);
     }
   }
 }
