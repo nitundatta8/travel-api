@@ -4,6 +4,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using TravelApi.Models;
 using Microsoft.EntityFrameworkCore;
+
 namespace TravelApi.Controllers
 {
   [Route("api/[controller]")]
