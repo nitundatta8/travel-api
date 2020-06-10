@@ -47,16 +47,16 @@ namespace TravelApi.Controllers
     }
 
     // Get a single review [http://localhost:5000/api/reviews/1/getaction]
-    [HttpGet("{id}")]
-    [Route("getaction")]
-    public ActionResult<Review> GetAction(int id)
+    [HttpGet("getReviewById/{id}")]
+    //[Route("getReviewById")]
+    public ActionResult<Review> GetReviewByID(int id)
     {
       return _db.Reviews.FirstOrDefault(entry => entry.ReviewId == id);
     }
 
     // Based on city review list will be populated [http://localhost:5000/api/reviews/getreviews/seattle]
-    [HttpGet]
-    [Route("getreviews")]
+    [HttpGet("getreviews")]
+    //[Route("getreviews")]
     public ActionResult<IEnumerable<Review>> GetReview(string city)
     {
       var query = _db.Reviews.AsQueryable();
