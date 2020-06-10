@@ -13,7 +13,10 @@ namespace TravelApi.Models
     [Required]
     [Range(0, 10, ErrorMessage = "Ratings are numbers 0 - 10")]
     public double Rating { get; set; }
+
+    public int PlaceId { get; set; }
     public virtual Place Place { get; set; }
+
     public User User { get; set; }
   }
 }

@@ -65,7 +65,7 @@ namespace TravelApi.Migrations
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("PlaceId");
+                    b.Property<int>("PlaceId");
 
                     b.Property<double>("Rating");
 
@@ -87,18 +87,21 @@ namespace TravelApi.Migrations
                         new
                         {
                             ReviewId = 1,
+                            PlaceId = 1,
                             Rating = 2.0,
                             ReviewText = "Great!"
                         },
                         new
                         {
                             ReviewId = 2,
+                            PlaceId = 2,
                             Rating = 1.0,
                             ReviewText = "I hated this place!"
                         },
                         new
                         {
                             ReviewId = 3,
+                            PlaceId = 3,
                             Rating = 4.0,
                             ReviewText = "Highly recommend!!"
                         });
@@ -146,7 +149,8 @@ namespace TravelApi.Migrations
                 {
                     b.HasOne("TravelApi.Models.Place", "Place")
                         .WithMany("Reviews")
-                        .HasForeignKey("PlaceId");
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TravelApi.Models.User", "User")
                         .WithMany()

@@ -20,10 +20,18 @@ namespace TravelApi.Controllers
     {
       _db = db;
     }
-
-    // Query reviews to view
+    // http://localhost:5000/api/reviews
     [HttpGet]
-    public ActionResult<IEnumerable<Review>> Get(string reviewtext, double rating)
+    public ActionResult<IEnumerable<Review>> Get()
+    {
+      List<Review> model = _db.Reviews.Include(entry => entry.Place).ToList();
+      return model;
+    }
+
+    // Query reviews to view [http://localhost:5000/api/getparam]
+    [HttpGet]
+    [Route("getparam")]
+    public ActionResult<IEnumerable<Review>> GetParam(string reviewtext, double rating)
     {
       var query = _db.Reviews.AsQueryable();
 
@@ -38,7 +46,7 @@ namespace TravelApi.Controllers
       return query.ToList();
     }
 
-    // Get a single review 
+    // Get a single review [http://localhost:5000/api/reviews/1/getaction]
     [HttpGet("{id}")]
     [Route("getaction")]
     public ActionResult<Review> GetAction(int id)
@@ -46,7 +54,7 @@ namespace TravelApi.Controllers
       return _db.Reviews.FirstOrDefault(entry => entry.ReviewId == id);
     }
 
-    // Based on city review list will be populated
+    // Based on city review list will be populated [http://localhost:5000/api/reviews/getreviews/seattle]
     [HttpGet]
     [Route("getreviews")]
     public ActionResult<IEnumerable<Review>> GetReview(string city)
@@ -67,8 +75,9 @@ namespace TravelApi.Controllers
       var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
 
       var user = _db.Users.FirstOrDefault(entry => entry.Id.ToString() == userId);
-      Console.WriteLine("Name --- " + user.FirstName);
+
       review.User = user;
+
       _db.Reviews.Add(review);
       _db.SaveChanges();
     }

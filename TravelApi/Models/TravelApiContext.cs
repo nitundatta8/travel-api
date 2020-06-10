@@ -13,7 +13,6 @@ namespace TravelApi.Models
     public DbSet<Place> Places { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<User> Users { get; set; }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<Place>()
@@ -23,9 +22,9 @@ namespace TravelApi.Models
             new Place { PlaceId = 3, City = "London", Country = "England", Rating = 3 });
       builder.Entity<Review>()
           .HasData(
-            new Review { ReviewId = 1, ReviewText = "Great!", Rating = 2 },
-            new Review { ReviewId = 2, ReviewText = "I hated this place!", Rating = 1 },
-            new Review { ReviewId = 3, ReviewText = "Highly recommend!!", Rating = 4 }
+            new Review { ReviewId = 1, ReviewText = "Great!", Rating = 2, PlaceId = 1 },
+            new Review { ReviewId = 2, ReviewText = "I hated this place!", Rating = 1, PlaceId = 2 },
+            new Review { ReviewId = 3, ReviewText = "Highly recommend!!", Rating = 4, PlaceId = 3 }
           );
       builder.Entity<User>()
       .HasData(
@@ -34,7 +33,9 @@ namespace TravelApi.Models
 
 
       );
-
     }
+
+
+
   }
 }
