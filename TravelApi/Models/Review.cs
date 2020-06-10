@@ -17,6 +17,7 @@ namespace TravelApi.Models
     public int PlaceId { get; set; }
     public virtual Place Place { get; set; }
 
+
     public User User { get; set; }
   }
 }
