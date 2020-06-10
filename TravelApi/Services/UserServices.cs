@@ -65,11 +65,13 @@ namespace TravelApi.Services
 
     public IEnumerable<User> GetAll()
     {// return users without passwords
+      Console.WriteLine("User created");
       List<User> u = new List<User> { };
       u = _db.Users.ToList();
       return u.Select(x =>
       {
         x.Password = null;
+        Console.WriteLine("User created -- " + x);
         return x;
       });
     }

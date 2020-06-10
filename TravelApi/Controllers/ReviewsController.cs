@@ -3,17 +3,20 @@ using System.Linq;
 using System;
 using Microsoft.AspNetCore.Mvc;
 using TravelApi.Models;
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TravelApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
-  public class ReviewController : ControllerBase
+  public class ReviewsController : ControllerBase
   {
     private TravelApiContext _db;
 
-    public ReviewController(TravelApiContext db)
+    public ReviewsController(TravelApiContext db)
     {
       _db = db;
     }
@@ -60,6 +63,12 @@ namespace TravelApi.Controllers
     [HttpPost]
     public void Post([FromBody] Review review)
     {
+      var claimsIdentity = this.User.Identity as ClaimsIdentity;
+      var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+
+      var user = _db.Users.FirstOrDefault(entry => entry.Id.ToString() == userId);
+      Console.WriteLine("Name --- " + user.FirstName);
+      review.User = user;
       _db.Reviews.Add(review);
       _db.SaveChanges();
     }

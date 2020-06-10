@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using TravelApi.Services;
 using TravelApi.Models;
 
@@ -35,6 +36,9 @@ namespace TravelApi.Controllers
     [HttpGet]
     public IActionResult GetAll()
     {
+      var claimsIdentity = this.User.Identity as ClaimsIdentity;
+      var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
+      Console.WriteLine(" userId " + userId);
       var users = _userService.GetAll();
       return Ok(users);
     }
